@@ -14,33 +14,43 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary shadow-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Taskminder</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Task</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Settings</a>
-          </li>
-        </ul>
-      </div>
+        <a class="navbar-brand" href="{{ route('todos.index') }}">Taskminder</a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ route('todos.index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Settings</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ml-auto">
+            @auth
+                <form method="POST" action="{{ route('user.UserLogout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-danger">Logout</button>
+                </form>
+            @endauth
+        </div>
     </div>
   </nav>
+
+
 
   <div class="container mt-3">
     @if (Session::has('success-alert'))
@@ -86,11 +96,17 @@
                   <td>{{$todo->title}}</td>
                   <td style="max-width: 100px; overflow: hidden">{{$todo->description}}</td>
                   <td>
-                    @if ($todo->is_complete == 1)
-                      <span class="badge bg-success">Completed</span>
-                    @else
-                      <span class="badge bg-danger">Incomplete</span>
-                    @endif
+                    <form method="POST" action="{{ route('todos.toggleStatus', $todo->id) }}">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-link">
+                            @if ($todo->is_complete == 1)
+                                <span class="badge bg-success">Completed</span>
+                            @else
+                                <span class="badge bg-danger">Incomplete</span>
+                            @endif
+                        </button>
+                    </form>
                   </td>
                   <td>
                     <div class="btn-group" role="group" aria-label="Task Actions">

@@ -34,24 +34,24 @@
                 <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                 <p class="text-white-50 mb-5">Please enter your email and password!</p>
 
-                <form action="{{route('user.UserLogin')}}" method="POST">
+                <form action="{{ route('user.UserLogin') }}" method="POST">
                   @csrf
-                <div class="form-outline form-white mb-4">
-                  <input type="email" id="email" class="form-control form-control-lg" />
-                  <label class="form-label" for="email">Email</label>
-                </div>
-
-                <div class="form-outline form-white mb-4">
-                  <input type="password" id="password" class="form-control form-control-lg" />
-                  <label class="form-label" for="password">Password</label>
-                </div>
-
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-
-                <a href="{{route('todos.index')}}">
+                  <div class="form-outline form-white mb-4">
+                      <label class="form-label" for="email">Email</label>
+                      <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                  </div>
+              
+                  <div class="form-outline form-white mb-4">
+                      <label class="form-label" for="password">Password</label>
+                      <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                  </div>
+              
+                  <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+              
                   <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-                </a>
-                </form>
+              </form>
+              
+              
               </div>
 
               <div>
