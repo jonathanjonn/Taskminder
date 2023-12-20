@@ -7,9 +7,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <title>detail</title>
-  <nav data-mdb-navbar-init class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <nav data-mdb-navbar-init class="navbar navbar-expand-lg navbar-light bg-body-tertiary shadow-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">Taskminder</a>
       <button
         data-mdb-collapse-init
         class="navbar-toggler"
@@ -32,7 +32,6 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Settings</a>
           </li>
-          
         </ul>
       </div>
     </div>
@@ -45,10 +44,28 @@
   </div>
   @endif
 
-  <b>Task title : </b> {{ $todo->title}}
-  <b>Task description : </b> {{ $todo->description}}
-  <br>
-  <a href="{{url()->previous()}}" class="btn btn-info">back</a>
+  <div class="container" style="padding-top: 60px">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body shadow-lg"> 
+            <h5 class="card-title">Task Details</h5>
+            <p class="card-text">
+              <b>Task Title:</b> {{ $todo->title }}<br>
+              <b>Task Description:</b> {{ $todo->description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3 justify-content-center">
+      <div class="col-md-6">
+        <div class="d-flex justify-content-center">
+          <a href="{{url()->previous()}}" class="btn btn-outline-secondary flex-grow-1">Back</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

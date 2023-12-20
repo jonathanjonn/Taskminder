@@ -18,27 +18,28 @@ class TodoController extends Controller
         return view('todos.create');
     }
 
-    public function store(TodoRequest $request){
+    public function store(Request $request){
+        $this->validate($request, [
+            'title' => 'required|string',
+            'description' => 'required|string|max:500',
+        ]);
+    
         Todo::create([
-            'title' => $request->title,
-            'description' => $request->description,
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
             'is_complete' => 0
         ]);
-
-        $request->session()->flash('success-alert', 'task created');
-
-        return to_route('todos.index');
+    
+        return redirect()->route('todos.index')->with('success-alert', 'Task created successfully');
     }
 
     public function detail($id){
         
         $todos = Todo::find($id);
         if (!$todos) {
-            request()->session()->flash('error', 'task not available');
-
-            return to_route('todos.index')->withErrors([
-                'error' => 'No task available'
-            ]);
+            return redirect()->route('todos.index')->withErrors([
+                'error' => 'Task not available'
+            ])->with('error', 'Task not available');
         }
 
         return view('todos.detail', ['todo' => $todos]);
@@ -48,53 +49,46 @@ class TodoController extends Controller
 
         $todos = Todo::find($id);
         if (!$todos) {
-            request()->session()->flash('error', 'task not available');
-
-            return to_route('todos.edit')->withErrors([
-                'error' => 'No task available'
-            ]);
+            return redirect()->route('todos.index')->withErrors([
+                'error' => 'Task not available'
+            ])->with('error', 'Task not available');
         }
 
         return view('todos.edit', ['todo' => $todos]);
     }
 
-    public function update(TodoRequest $request){
+    public function update(Request $request)
+    {
+        $todo = Todo::find($request->todo_id);
 
-        $todos = Todo::find($request->todo_id);
-        if (!$todos) {
-            request()->session()->flash('error', 'task not available');
-
-            return to_route('todos.index')->withErrors([
-                'error' => 'No task available'
-            ]);
+        if (!$todo) {
+            return redirect()->route('todos.index')->withErrors([
+                'error' => 'Task not available'
+            ])->with('error', 'Task not available');
         }
 
-        $todos->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'is_complete' => $request->is_complete
+        $todo->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
         ]);
 
-        $request->session()->flash('update-alert', 'task created');
-
-        return to_route('todos.index');
+        return redirect()->route('todos.index')->with('success', 'Task updated successfully');
     }
 
-    public function remove(Request $request){
+    public function remove(Request $request)
+    {
+        $todo = Todo::find($request->todo_id);
 
-        $todos = Todo::find($request->todo_id);
-        if (!$todos) {
-            request()->session()->flash('error', 'task not available');
-
-            return to_route('todos.index')->withErrors([
-                'error' => 'No task available'
-            ]);
+        if (!$todo) {
+            return redirect()->route('todos.index')->withErrors([
+                'error' => 'Task not available'
+            ])->with('error', 'Task not available');
         }
 
-        $todos->delete();
-        $request->session()->flash('delete-alert', 'task deleted');
+        $todo->delete();
 
-        return to_route('todos.index');
+        return redirect()->route('todos.index')->with('delete-alert', 'Task deleted successfully');
     }
+
     
 }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\UserController;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +15,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::view('/','login')->name('todos.login');
+// Route::view('/','login')->name('todos.login');
 
-Route::view('/register','register')->name('todos.register');
-
+Route::get('/register',[UserController::class, 'register'])->name('user.register');
+Route::post('register/userRegister',[UserController::class, 'userRegister'])->name('user.userRegister');
+Route::get('/',[UserController::class,'Login'])->name('user.login');
+Route::post('/UserLogin',[UserController::class,'UserLogin'])->name('user.UserLogin');
+Route::post('/logout',[UserController::class,'UserLogout']);
 
 Route::get('todos/index', [TodoController::class, 'index'])->name('todos.index');
 Route::get('todos/create', [TodoController::class, 'create'])->name('todos.create');
@@ -26,3 +31,4 @@ Route::get('todos/detail/{id}', [TodoController::class, 'detail'])->name('todos.
 Route::get('todos/{id}/edit', [TodoController::class, 'edit'])->name('todos.edit');
 Route::put('todos/update', [TodoController::class, 'update'])->name('todos.update');
 Route::delete('todos/remove', [TodoController::class, 'remove'])->name('todos.remove');
+Route::view('/profile','profile');
