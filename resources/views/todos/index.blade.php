@@ -12,33 +12,35 @@
 
 <body class="bg-light">
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary shadow-lg">
+  <nav class="navbar navbar-light bg-body-tertiary shadow-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('todos.index') }}">Taskminder</a>
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('todos.index') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Task</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Settings</a>
-                </li>
-            </ul>
-        </div>
+      <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" style="width: 20%;">
+        <h1>TaskMinder</h1>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Home</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body bg-black">
+  <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ route('todos.index') }}" style="color: white;">Home</a>
+          </li>
+          <li class="nav-item" style="color: white;">
+            <a class="nav-link" href="{{ route('user.profile') }}" style="color: white;">Profile</a>
+          </li>
+          <li class="nav-item" style="color: white;">
+            <a class="nav-link" href="{{ route('user.settings') }}" style="color: white;">Settings</a>
+          </li>
+        </ul>
+  </div>
+</div>
+          <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+          </svg>
+          </button>
+          
+       
         <div class="ml-auto">
             @auth
                 <form method="POST" action="{{ route('user.UserLogout') }}">
@@ -49,8 +51,6 @@
         </div>
     </div>
   </nav>
-
-
 
   <div class="container mt-3">
     @if (Session::has('success-alert'))

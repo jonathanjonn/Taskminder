@@ -25,26 +25,49 @@
               <div class="mb-md-2 mt-md-2 pb-1">
               <h2 class="text-uppercase text-center mb-4">Create an account</h2>
 
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                    <ul class="mb-0">
+                      @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                @endif
+
+
               <form action="{{ route('user.userRegister') }}" method="POST">
                 @csrf
                 <div class="form-outline mb-3">
                     <label class="form-label" for="name">Your Name</label>
-                    <input type="text" id="name" name="name" class="form-control form-control-lg @error('name') is-invalid @enderror" />
+                    <input type="text" id="name" name="name" class="form-control form-control-lg" />
+                    @error('name')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             
                 <div class="form-outline mb-3">
                     <label class="form-label" for="email">Your Email</label>
                     <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                    @error('email')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             
                 <div class="form-outline mb-3">
                     <label class="form-label" for="password">Password</label>
                     <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                    @error('password')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             
                 <div class="form-outline mb-3">
                     <label class="form-label" for="password_confirmation">Repeat your password</label>
                     <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg" />
+                    @error('password_confirmation')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             
                 <div class="d-flex justify-content-center">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\LogedInMiddleware;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,6 @@ Route::get('todos/{id}/edit', [TodoController::class, 'edit'])->name('todos.edit
 Route::put('todos/update', [TodoController::class, 'update'])->name('todos.update');
 Route::delete('todos/remove', [TodoController::class, 'remove'])->name('todos.remove');
 Route::put('todos/{id}/toggle-status', [TodoController::class, 'toggleStatus'])->name('todos.toggleStatus');
-Route::view('/profile','profile');
+Route::get('/profile', [UserController::class, 'showProfile'])->name('user.profile');
+Route::post('profile/update-password', [UserController::class, 'updatePassword'])->name('todos.profile.updatePassword');
+Route::get('/user/settings', [UserController::class, 'settings'])->name('user.settings');

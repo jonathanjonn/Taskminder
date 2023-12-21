@@ -3,6 +3,7 @@
 namespace App\Services\Impl;
 
 use App\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 
 class UserServiceImpl implements UserService
 {
@@ -10,11 +11,12 @@ class UserServiceImpl implements UserService
 
   function login(string $user, string $password):bool
   {
-    if(!isset($this->users[$user])){
-      return false;
-    }
+    return Auth::attempt(['email' => $user, 'password' => $password]);
+    // if(!isset($this->users[$user])){
+    //   return false;
+    // }
 
-    $correctPassword = $this->users[$user];
-    return $password == $correctPassword;
+    // $correctPassword = $this->users[$user];
+    // return $password == $correctPassword;
   }
 }
