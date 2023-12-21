@@ -4,7 +4,7 @@ create .env or delete .example from .env.example
 
 composer install
 
-php artisan ket:generate
+php artisan key:generate
 
 php artisan migrate
 
