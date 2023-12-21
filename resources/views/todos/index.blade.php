@@ -28,9 +28,6 @@
           <li class="nav-item" style="color: white;">
             <a class="nav-link" href="{{ route('user.profile') }}" style="color: white;">Profile</a>
           </li>
-          <li class="nav-item" style="color: white;">
-            <a class="nav-link" href="{{ route('user.settings') }}" style="color: white;">Settings</a>
-          </li>
         </ul>
   </div>
 </div>

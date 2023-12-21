@@ -28,7 +28,7 @@ class TodoController extends Controller
             'description' => 'required|string|max:500',
         ]);
 
-        $user = Auth::user(); // Get the currently authenticated user
+        $user = Auth::user(); 
 
         Todo::create([
             'title' => $request->input('title'),

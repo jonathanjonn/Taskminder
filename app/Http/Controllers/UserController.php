@@ -119,4 +119,21 @@ class UserController extends Controller
 
             return redirect()->back()->with('success', 'Password changed successfully.');
         }
+
+    public function uploadProfilePicture(Request $request)
+    {
+        $request->validate([
+            'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        if ($request->hasFile('profile_picture')) {
+            $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $imagePath;
+            $user->save();
+        }
+
+        return redirect()->back()->with('success', 'Profile picture uploaded successfully')->with('user', $user);
+    }
 }

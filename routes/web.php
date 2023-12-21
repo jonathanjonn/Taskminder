@@ -35,4 +35,5 @@ Route::delete('todos/remove', [TodoController::class, 'remove'])->name('todos.re
 Route::put('todos/{id}/toggle-status', [TodoController::class, 'toggleStatus'])->name('todos.toggleStatus');
 Route::get('/profile', [UserController::class, 'showProfile'])->name('user.profile');
 Route::post('profile/update-password', [UserController::class, 'updatePassword'])->name('todos.profile.updatePassword');
-Route::get('/user/settings', [UserController::class, 'settings'])->name('user.settings');
+
+Route::post('/user/upload-profile-picture', [UserController::class, 'uploadProfilePicture'])->name('user.uploadProfilePicture');

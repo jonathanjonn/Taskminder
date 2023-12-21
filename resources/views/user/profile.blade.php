@@ -130,7 +130,6 @@
           <ul class="dropdown-menu dropdown-menu-dark">
             <li><a class="dropdown-item" href="{{ route('todos.index') }}">Home</a></li>
             <li><a class="dropdown-item" href="{{ route('todos.create') }}">Add List</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
           </ul>
         </li>
       </ul>
@@ -140,13 +139,26 @@
 </nav>
 <div class="container mt-3">
   @if(Auth::check())
-  <div class="card" style="width: 18rem;">
-      <img src="{{ Auth::user()->profile_picture_url }}" class="card-img-top" alt="Profile Picture">
+  <div class="card shadow-lg" style="width: 18rem;">
+    @php $user = Auth::user(); @endphp
+      <img src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/default-profile-picture.jpg') }}" class="card-img-top" alt="Profile Picture">
       <div class="card-body">
-          <h5 class="card-title">{{ Auth::user()->name }}</h5>
+          <h5 class="card-title">Hello {{ Auth::user()->name }} !</h5>
+
+          <form action="{{ route('user.uploadProfilePicture') }}" method="POST" enctype="multipart/form-data">
+              @csrf
+              <div class="mb-3">
+                  <label for="profilePicture" class="form-label">Choose Profile Picture</label>
+                  <div class="input-group">
+                      <input type="file" class="form-control" id="profilePicture" name="profile_picture">
+                      <button type="submit" class="btn btn-primary">Upload</button>
+                  </div>
+              </div>
+          </form>
       </div>
   </div>
   @endif
+</div>
 </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
